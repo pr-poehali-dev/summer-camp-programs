@@ -16,7 +16,7 @@ const Hero = () => {
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 bg-camp-yellow/30 text-amber-800 px-4 py-2 rounded-full text-sm font-bold mb-6">
+            <div className="inline-flex items-center gap-2 bg-camp-yellow/60 text-amber-900 px-4 py-2 rounded-full text-sm font-bold mb-6 animate-pulse">
               <span>✨</span> Все программы авторские
             </div>
             <h1 className="font-fun text-5xl md:text-6xl text-foreground leading-tight mb-6 text-shadow-fun">
