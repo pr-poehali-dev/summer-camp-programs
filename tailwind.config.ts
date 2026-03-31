@@ -7,6 +7,7 @@ export default {
 		"./components/**/*.{ts,tsx}",
 		"./app/**/*.{ts,tsx}",
 		"./src/**/*.{ts,tsx}",
+			"./1774972935048174896.html"
 	],
 	prefix: "",
 	theme: {
@@ -18,6 +19,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				fun: ['Fredoka One', 'cursive'],
+				body: ['Nunito', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -51,6 +56,14 @@ export default {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
+				},
+				camp: {
+					orange: 'hsl(var(--camp-orange))',
+					yellow: 'hsl(var(--camp-yellow))',
+					green: 'hsl(var(--camp-green))',
+					purple: 'hsl(var(--camp-purple))',
+					blue: 'hsl(var(--camp-blue))',
+					pink: 'hsl(var(--camp-pink))',
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
