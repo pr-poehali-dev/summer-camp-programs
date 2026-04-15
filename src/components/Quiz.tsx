@@ -468,7 +468,7 @@ const Quiz = () => {
           {/* === Q7: ОПЫТ === */}
           {step === 7 && (
             <div>
-              <h2 className="font-fun text-2xl md:text-3xl text-foreground mb-8 text-center">Был ли ваш ребёнок раньше в летних лагерях?</h2>
+              <h2 className="font-fun text-2xl md:text-3xl text-foreground mb-8 text-center">Был ли ваш ребёнок раньше в летних клубах?</h2>
               <div className="flex flex-col gap-4">
                 {q7Options.map((o, i) => (
                   <button key={i} onClick={() => handleQ7(i)}
@@ -483,7 +483,7 @@ const Quiz = () => {
           {/* === Q8: ДЛИТЕЛЬНОСТЬ === */}
           {step === 8 && (
             <div>
-              <h2 className="font-fun text-2xl md:text-3xl text-foreground mb-8 text-center">На какой срок вы рассматриваете лагерь?</h2>
+              <h2 className="font-fun text-2xl md:text-3xl text-foreground mb-8 text-center">На какой срок вы рассматриваете клуб?</h2>
               <div className="flex flex-col gap-4">
                 {["🗓️ 1 неделя (короткий интенсив)", "🗓️🗓️ 2 недели (полноценная смена)", "🤔 Пока не решил(а), хочу посмотреть варианты"].map((label, i) => (
                   <button key={i} onClick={() => handleQ8(i)}
@@ -498,7 +498,7 @@ const Quiz = () => {
           {/* === Q9: ПРИОРИТЕТЫ (мульти) === */}
           {step === 9 && (
             <div>
-              <h2 className="font-fun text-2xl md:text-3xl text-foreground mb-2 text-center">Что для вас критично при выборе лагеря?</h2>
+              <h2 className="font-fun text-2xl md:text-3xl text-foreground mb-2 text-center">Что для вас критично при выборе клуба?</h2>
               <p className="text-center text-muted-foreground mb-6">Можно выбрать 1–2 варианта</p>
               <div className="flex flex-col gap-3">
                 {q9Options.map((o, i) => {
@@ -527,7 +527,7 @@ const Quiz = () => {
                 <h2 className="font-fun text-2xl md:text-3xl text-foreground mb-3">Готово! Мы проанализировали ответы</h2>
                 <p className="text-muted-foreground leading-relaxed">
                   Куда отправить рекомендацию + бонус-чеклист<br />
-                  <strong>«Как подготовить ребёнка к лагерю без стресса»?</strong>
+                  <strong>«Как подготовить ребёнка к летнему клубу без стресса»?</strong>
                 </p>
               </div>
               <div className="flex flex-col gap-4">
@@ -662,7 +662,7 @@ const Quiz = () => {
 
         {step === 0 && (
           <p className="text-center text-muted-foreground text-sm mt-6">
-            Детский лагерь «Карнавал» · Все программы авторские
+            Летний клуб «Рыбка Долли» · Все программы авторские
           </p>
         )}
       </div>
