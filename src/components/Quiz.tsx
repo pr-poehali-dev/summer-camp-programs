@@ -628,6 +628,26 @@ const Quiz = () => {
               {/* Общий отзыв о лагере */}
               <div className="bg-gray-50 rounded-2xl px-5 py-3 mb-5 text-sm text-gray-600 italic">{CAMP_REVIEW}</div>
 
+              {/* Блок «несколько смен» */}
+              {resultIds.length > 1 && (
+                <div className="bg-gradient-to-br from-amber-400 to-orange-400 rounded-2xl px-6 py-5 mb-5 text-white text-center shadow-lg">
+                  <p className="font-fun text-xl mb-1">Запишитесь на 2+ смены — и получите скидку!</p>
+                  <p className="text-sm opacity-90 mb-4">Уточните условия у менеджера при записи</p>
+                  <div className="flex flex-col gap-2">
+                    <a href="https://max.ru/u/f9LHodD0cOLgRCCJZdRIIi-mKN9GJ4AzcemdK-B6zr2HQZNi5uqb0TYzEe8"
+                      target="_blank" rel="noopener noreferrer"
+                      className="w-full py-3 rounded-xl bg-white text-orange-500 font-bold text-sm hover:bg-orange-50 transition-all flex items-center justify-center gap-2">
+                      💬 Записаться на несколько смен в Макс
+                    </a>
+                    <a href="https://t.me/+79881521698"
+                      target="_blank" rel="noopener noreferrer"
+                      className="w-full py-3 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-sm transition-all flex items-center justify-center gap-2">
+                      ✈️ Записаться на несколько смен в Telegram
+                    </a>
+                  </div>
+                </div>
+              )}
+
               <div className="text-center text-sm text-muted-foreground border-t border-amber-100 pt-4 mt-2">
                 <p>Не уверены? Позвоните — поможем выбрать за 5 минут</p>
                 <button onClick={reset}
