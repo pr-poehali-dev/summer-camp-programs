@@ -5,10 +5,13 @@ import func2url from "../../backend/func2url.json";
 
 type Scores = Record<string, number>;
 
+// --- Общий отзыв о лагере ---
+const CAMP_REVIEW = "💬 Мама Марины (9 лет): «Дочь приходила домой счастливая каждый день. Педагоги внимательные, атмосфера тёплая — мы уже записались на вторую смену!»";
+
 // --- Данные смен ---
 const SHIFTS: Record<string, {
   title: string; emoji: string; tagline: string;
-  bullets: string[]; bonus: string; cta: string; color: string; review: string;
+  bullets: string[]; bonus: string; cta: string; color: string;
 }> = {
   "1": {
     title: "Сундук со сказками", emoji: "✨",
@@ -19,8 +22,7 @@ const SHIFTS: Record<string, {
       "Научится говорить уверенно и работать в команде",
     ],
     bonus: "При записи до конца апреля — скидка 10% + личный «сказочный дневник» в подарок",
-    cta: "Забронировать место со скидкой", color: "from-purple-400 to-pink-400",
-    review: "💬 Мама Артёма (8 лет): «Сын до этого не любил выступать, а после смены сам попросил записать его в театральную студию!»",
+    cta: "Забронировать место", color: "from-purple-400 to-pink-400",
   },
   "2": {
     title: "Вкусные открытия", emoji: "🍳",
@@ -31,8 +33,7 @@ const SHIFTS: Record<string, {
       "Создаст свою первую кулинарную книгу",
     ],
     bonus: "При записи до конца апреля — бесплатный мастер-класс «Домашнее мороженое» для всей семьи",
-    cta: "Забронировать место с бонусом", color: "from-orange-400 to-yellow-400",
-    review: "💬 Папа Софии (9 лет): «Дочь теперь сама готовит завтрак по субботам — и это бесценно!»",
+    cta: "Забронировать место", color: "from-orange-400 to-yellow-400",
   },
   "3": {
     title: "Мульти-драйв", emoji: "🏴‍☠️",
@@ -43,8 +44,7 @@ const SHIFTS: Record<string, {
       "Укрепит здоровье на море и в походах",
     ],
     bonus: "При записи до конца апреля — профессиональная фотосессия в пиратском стиле в подарок",
-    cta: "Забронировать место с фотосессией", color: "from-red-400 to-orange-400",
-    review: "💬 Мама Димы (7 лет): «Ребёнок вернулся с таким количеством историй, что хватило на весь август!»",
+    cta: "Забронировать место", color: "from-red-400 to-orange-400",
   },
   "4": {
     title: "Поколение Альфа", emoji: "📱",
@@ -55,8 +55,7 @@ const SHIFTS: Record<string, {
       "Попробует себя в роли техно-творца: от неоновой вывески до парфюма",
     ],
     bonus: "При записи до конца апреля — доступ к закрытому уроку «Как монтировать видео как блогер»",
-    cta: "Забронировать место с уроком в подарок", color: "from-blue-400 to-indigo-400",
-    review: "💬 Мама Кати (11 лет): «Дочь наконец-то использует телефон с пользой — теперь она монтирует свои видео!»",
+    cta: "Забронировать место", color: "from-blue-400 to-indigo-400",
   },
   "5": {
     title: "Есть ли жизнь на Марсе?", emoji: "🚀",
@@ -67,8 +66,7 @@ const SHIFTS: Record<string, {
       "Снимет свой первый научно-фантастический ролик с использованием ИИ",
     ],
     bonus: "При записи до конца апреля — набор «Юный инженер» (гидропоника дома) в подарок",
-    cta: "Забронировать место с набором", color: "from-slate-500 to-blue-500",
-    review: "💬 Папа Никиты (12 лет): «Сын теперь говорит, что хочет стать инженером. Спасибо, что показали ему это направление!»",
+    cta: "Забронировать место", color: "from-slate-500 to-blue-500",
   },
   "6": {
     title: "Кругосветка", emoji: "🌍",
@@ -79,8 +77,7 @@ const SHIFTS: Record<string, {
       "Укрепит командный дух в квестах и вылазках на природу",
     ],
     bonus: "При записи до конца апреля — этно-набор для домашних экспериментов в подарок",
-    cta: "Забронировать место с набором", color: "from-green-400 to-teal-400",
-    review: "💬 Мама Лизы (10 лет): «Дочь теперь знает, как сказать «привет» на 5 языках — и это только начало!»",
+    cta: "Забронировать место", color: "from-green-400 to-teal-400",
   },
   "7": {
     title: "Невероятные открытия", emoji: "🔬",
@@ -91,33 +88,24 @@ const SHIFTS: Record<string, {
       "Заберёт домой свой первый «лабораторный набор» для домашних открытий",
     ],
     bonus: "При записи до конца апреля — расширенный набор опытов + видео-инструкции",
-    cta: "Забронировать место с набором", color: "from-teal-400 to-cyan-400",
-    review: "💬 Мама Саши (8 лет): «Сын теперь сам объясняет мне, почему сода шипит с уксусом. Это бесценно!»",
+    cta: "Забронировать место", color: "from-teal-400 to-cyan-400",
   },
 };
 
-// --- Подсчёт результата ---
-function calcResult(
+// --- Подсчёт топ-3 результатов ---
+function calcTopResults(
   ageAllowed: number[],
   durationAllowed: number[],
   scores: Scores
-): string {
-  // Пересечение фильтров
+): string[] {
   const ageSet = new Set(ageAllowed.map(String));
   const durSet = new Set(durationAllowed.map(String));
   const allIds = ["1","2","3","4","5","6","7"];
   const candidates = allIds.filter(id => ageSet.has(id) && durSet.has(id));
-  if (candidates.length === 0) return ageAllowed[0]?.toString() ?? "1";
+  if (candidates.length === 0) return [ageAllowed[0]?.toString() ?? "1"];
 
-  let best = candidates[0];
-  let bestScore = -Infinity;
-  candidates.forEach(id => {
-    if ((scores[id] ?? 0) > bestScore) {
-      bestScore = scores[id] ?? 0;
-      best = id;
-    }
-  });
-  return best;
+  const sorted = [...candidates].sort((a, b) => (scores[b] ?? 0) - (scores[a] ?? 0));
+  return sorted.slice(0, 3);
 }
 
 function addScores(base: Scores, extra: Scores): Scores {
@@ -147,7 +135,7 @@ const Quiz = () => {
   // Контакты
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [resultId, setResultId] = useState<string>("1");
+  const [resultIds, setResultIds] = useState<string[]>(["1"]);
 
   // Ответы для Telegram
   const [answerAge, setAnswerAge] = useState("");
@@ -282,8 +270,8 @@ const Quiz = () => {
 
   // Q10: Контакты
   const handleContacts = async () => {
-    const id = calcResult(ageAllowed, durationAllowed, scores);
-    setResultId(id);
+    const ids = calcTopResults(ageAllowed, durationAllowed, scores);
+    setResultIds(ids);
     setStep(11);
 
     try {
@@ -293,7 +281,7 @@ const Quiz = () => {
         body: JSON.stringify({
           name,
           phone,
-          shift: SHIFTS[id]?.title ?? id,
+          shift: ids.map(id => SHIFTS[id]?.title ?? id).join(", "),
           age: answerAge,
           interests: answerInterests.join(", "),
           goal: answerGoal,
@@ -319,6 +307,7 @@ const Quiz = () => {
     setMultiSelected([]);
     setName("");
     setPhone("");
+    setResultIds(["1"]);
     setAnswerAge("");
     setAnswerInterests([]);
     setAnswerGoal("");
@@ -326,8 +315,6 @@ const Quiz = () => {
     setAnswerExperience("");
     setAnswerDuration("");
   };
-
-  const shift = SHIFTS[resultId];
 
   // Прогресс
   const showProgress = step >= 1 && step <= 10;
@@ -375,7 +362,7 @@ const Quiz = () => {
               <Button onClick={handleStart} className="w-full text-lg py-6 rounded-2xl camp-gradient text-white font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all">
                 Начать подбор →
               </Button>
-              <p className="text-sm text-muted-foreground mt-3">Без спама, только польза</p>
+              <p className="text-sm text-muted-foreground mt-3">Без спама, только польза · Тест составлен профильными специалистами</p>
             </div>
           )}
 
@@ -574,29 +561,63 @@ const Quiz = () => {
           )}
 
           {/* === РЕЗУЛЬТАТ === */}
-          {step === 12 && shift && (
+          {step === 12 && resultIds.length > 0 && (
             <div>
-              <div className={`bg-gradient-to-br ${shift.color} rounded-2xl p-6 text-white text-center mb-6`}>
-                <div className="text-5xl mb-3">{shift.emoji}</div>
-                <h2 className="font-fun text-2xl leading-tight">{shift.tagline}</h2>
+              <div className="text-center mb-6">
+                <div className="text-4xl mb-2">🎯</div>
+                <h2 className="font-fun text-2xl text-foreground">Вот подходящие смены для вашего ребёнка</h2>
+                {(adaptationNote || experienceNote) && (
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Учли, что ребёнок <strong>{adaptationNote}</strong>{experienceNote ? ` и ${experienceNote}` : ""}
+                  </p>
+                )}
               </div>
 
-              {/* Персонализация */}
-              {(adaptationNote || experienceNote) && (
-                <div className="bg-blue-50 border-2 border-blue-100 rounded-2xl px-5 py-3 mb-4 text-sm text-blue-800">
-                  Мы учли, что ваш ребёнок <strong>{adaptationNote}</strong>
-                  {experienceNote ? ` и ${experienceNote}` : ""}.
-                </div>
-              )}
-
-              <ul className="flex flex-col gap-3 mb-5">
-                {shift.bullets.map((b, i) => (
-                  <li key={i} className="flex items-start gap-3 bg-amber-50 rounded-2xl px-4 py-3">
-                    <span className="text-camp-orange font-bold mt-0.5">🔹</span>
-                    <span className="text-sm font-semibold text-foreground">{b}</span>
-                  </li>
-                ))}
-              </ul>
+              {/* Карточки смен */}
+              <div className="flex flex-col gap-6 mb-5">
+                {resultIds.map((id, index) => {
+                  const s = SHIFTS[id];
+                  if (!s) return null;
+                  return (
+                    <div key={id} className="border-2 border-amber-100 rounded-2xl overflow-hidden">
+                      {/* Шапка */}
+                      <div className={`bg-gradient-to-br ${s.color} px-5 py-4 text-white flex items-center gap-3`}>
+                        <span className="text-3xl">{s.emoji}</span>
+                        <div>
+                          {index === 0 && <span className="text-xs font-bold bg-white/30 px-2 py-0.5 rounded-full mr-2">⭐ Лучшее совпадение</span>}
+                          <p className="font-fun text-lg leading-tight mt-0.5">«{s.title}»</p>
+                        </div>
+                      </div>
+                      {/* Тело */}
+                      <div className="px-5 py-4 bg-white">
+                        <ul className="flex flex-col gap-2 mb-3">
+                          {s.bullets.map((b, i) => (
+                            <li key={i} className="flex items-start gap-2 text-sm text-foreground">
+                              <span className="text-camp-orange mt-0.5">🔹</span>
+                              <span>{b}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="bg-yellow-50 rounded-xl px-4 py-2 mb-3">
+                          <p className="text-xs font-bold text-amber-800">🎁 {s.bonus}</p>
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          <a href="https://max.ru/u/f9LHodD0cOLgRCCJZdRIIi-mKN9GJ4AzcemdK-B6zr2HQZNi5uqb0TYzEe8"
+                            target="_blank" rel="noopener noreferrer"
+                            className="w-full text-sm py-3 rounded-xl bg-violet-500 hover:bg-violet-600 text-white font-bold transition-all flex items-center justify-center gap-2">
+                            💬 {s.cta} в Макс
+                          </a>
+                          <a href="https://t.me/+79881521698"
+                            target="_blank" rel="noopener noreferrer"
+                            className="w-full text-sm py-3 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold transition-all flex items-center justify-center gap-2">
+                            ✈️ {s.cta} в Telegram
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
 
               {priorityNote && (
                 <div className="bg-green-50 border-2 border-green-100 rounded-2xl px-5 py-3 mb-4 text-sm text-green-800">
@@ -604,25 +625,8 @@ const Quiz = () => {
                 </div>
               )}
 
-              <div className="bg-yellow-50 border-2 border-yellow-200 rounded-2xl px-5 py-4 mb-4">
-                <p className="text-sm font-bold text-amber-800">🎁 Бонус:</p>
-                <p className="text-sm text-amber-700 mt-1">{shift.bonus}</p>
-              </div>
-
-              <div className="bg-gray-50 rounded-2xl px-5 py-3 mb-5 text-sm text-gray-600 italic">{shift.review}</div>
-
-              <div className="flex flex-col gap-3 mb-3">
-                <a href="https://max.ru/u/f9LHodD0cOLgRCCJZdRIIi-mKN9GJ4AzcemdK-B6zr2HQZNi5uqb0TYzEe8"
-                  target="_blank" rel="noopener noreferrer"
-                  className="w-full text-base py-4 rounded-2xl bg-violet-500 hover:bg-violet-600 text-white font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2">
-                  💬 {shift.cta} в Макс
-                </a>
-                <a href="https://t.me/+79881521698"
-                  target="_blank" rel="noopener noreferrer"
-                  className="w-full text-base py-4 rounded-2xl bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2">
-                  ✈️ {shift.cta} в Telegram
-                </a>
-              </div>
+              {/* Общий отзыв о лагере */}
+              <div className="bg-gray-50 rounded-2xl px-5 py-3 mb-5 text-sm text-gray-600 italic">{CAMP_REVIEW}</div>
 
               <div className="text-center text-sm text-muted-foreground border-t border-amber-100 pt-4 mt-2">
                 <p>Не уверены? Позвоните — поможем выбрать за 5 минут</p>
