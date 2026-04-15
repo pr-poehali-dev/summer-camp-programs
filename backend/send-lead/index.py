@@ -1,6 +1,7 @@
 import os
 import json
 import urllib.request
+# v2
 
 def handler(event: dict, context) -> dict:
     """Отправляет данные заявки из квиза в Telegram"""
@@ -34,7 +35,7 @@ def handler(event: dict, context) -> dict:
 
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     payload = json.dumps({
-        'chat_id': chat_id,
+        'chat_id': int(chat_id),
         'text': text,
         'parse_mode': 'HTML'
     }).encode('utf-8')
