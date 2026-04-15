@@ -507,12 +507,12 @@ const Quiz = () => {
 
               <div className="flex flex-col gap-3 mb-3">
                 <a
-                  href="https://wa.me/79881521698"
+                  href="https://max.ru/+79881521698"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full text-base py-4 rounded-2xl bg-green-500 hover:bg-green-600 text-white font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2"
+                  className="w-full text-base py-4 rounded-2xl bg-violet-500 hover:bg-violet-600 text-white font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2"
                 >
-                  💬 {shift.cta} в WhatsApp
+                  💬 {shift.cta} в Макс
                 </a>
                 <a
                   href="https://t.me/+79881521698"
