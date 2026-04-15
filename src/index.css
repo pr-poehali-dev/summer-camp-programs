@@ -61,6 +61,30 @@
   h3 {
     font-family: "Nunito", sans-serif;
     font-weight: 900;
+    line-height: 1.15;
+  }
+
+  /* Увеличенные размеры заголовков на мобильном */
+  h1 {
+    font-size: 2.5rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 3.75rem;
+    }
+    h2 {
+      font-size: 2.5rem;
+    }
+    h3 {
+      font-size: 1.75rem;
+    }
   }
 }
 

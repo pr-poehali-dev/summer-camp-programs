@@ -20,6 +20,7 @@ const Admin = () => {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [visitors, setVisitors] = useState<number | null>(null);
 
   useEffect(() => {
     fetch(func2url["get-leads"])
@@ -29,6 +30,14 @@ const Admin = () => {
         setLeads(parsed.leads || []);
       })
       .finally(() => setLoading(false));
+
+    fetch(func2url["track-visit"])
+      .then((r) => r.json())
+      .then((data) => {
+        const parsed = typeof data === "string" ? JSON.parse(data) : data;
+        setVisitors(parsed.total ?? null);
+      })
+      .catch(() => {});
   }, []);
 
   const filtered = leads.filter(
@@ -59,6 +68,18 @@ const Admin = () => {
             <p className="text-gray-500 text-sm mt-1">
               {loading ? "Загрузка..." : `Всего заявок: ${leads.length}`}
             </p>
+          </div>
+          <div className="flex gap-4 flex-wrap">
+            <div className="bg-white border border-gray-200 rounded-xl px-5 py-3 text-center shadow-sm">
+              <div className="text-2xl font-bold text-gray-900">
+                {visitors !== null ? visitors : "—"}
+              </div>
+              <div className="text-xs text-gray-400 mt-0.5">уникальных посетителей</div>
+            </div>
+            <div className="bg-white border border-gray-200 rounded-xl px-5 py-3 text-center shadow-sm">
+              <div className="text-2xl font-bold text-gray-900">{leads.length}</div>
+              <div className="text-xs text-gray-400 mt-0.5">заявок из квиза</div>
+            </div>
           </div>
           <input
             type="text"
