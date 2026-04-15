@@ -20,7 +20,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				fun: ['Fredoka One', 'cursive'],
+				fun: ['Nunito', 'sans-serif'],
 				body: ['Nunito', 'sans-serif'],
 			},
 			colors: {
