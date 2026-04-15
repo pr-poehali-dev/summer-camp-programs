@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import func2url from "../../backend/func2url.json";
+import Footer from "@/components/Footer";
 
 type Scores = Record<string, number>;
 
@@ -321,6 +322,7 @@ const Quiz = () => {
   const progressStep = step <= 10 ? step : 10;
 
   return (
+    <>
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center px-4 py-8">
       <div className="fixed top-8 left-8 text-5xl opacity-20 animate-bounce pointer-events-none">⭐</div>
       <div className="fixed top-16 right-12 text-4xl opacity-20 animate-pulse pointer-events-none">🌈</div>
@@ -667,6 +669,8 @@ const Quiz = () => {
         )}
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 
