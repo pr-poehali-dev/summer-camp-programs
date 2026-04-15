@@ -149,6 +149,14 @@ const Quiz = () => {
   const [phone, setPhone] = useState("");
   const [resultId, setResultId] = useState<string>("1");
 
+  // Ответы для Telegram
+  const [answerAge, setAnswerAge] = useState("");
+  const [answerInterests, setAnswerInterests] = useState<string[]>([]);
+  const [answerGoal, setAnswerGoal] = useState("");
+  const [answerAdaptation, setAnswerAdaptation] = useState("");
+  const [answerExperience, setAnswerExperience] = useState("");
+  const [answerDuration, setAnswerDuration] = useState("");
+
   const handleStart = () => setStep(1);
 
   const applyScores = (extra: Scores) => setScores(prev => addScores(prev, extra));
@@ -162,7 +170,9 @@ const Quiz = () => {
       [1,2,3,4,5,6,7],
       [4,5],
     ];
+    const labels = ["7–9 лет", "10–12 лет", "13–14 лет"];
     setAgeAllowed(map[idx]);
+    setAnswerAge(labels[idx]);
     nextStep();
   };
 
@@ -184,6 +194,7 @@ const Quiz = () => {
   };
   const handleQ2Next = () => {
     multiSelected.forEach(idx => applyScores(q2Options[idx].scores));
+    setAnswerInterests(multiSelected.map(i => q2Options[i].label.replace(/^.{2}\s/, "")));
     setMultiSelected([]);
     nextStep();
   };
@@ -196,7 +207,11 @@ const Quiz = () => {
     { label: "🌿 Отдых от экрана, здоровье, активность на природе", scores: {"3":1,"6":1} },
     { label: "🎨 Творческая реализация, создание чего-то уникального", scores: {"1":1,"2":1,"4":1} },
   ];
-  const handleQ3 = (idx: number) => { applyScores(q3Options[idx].scores); nextStep(); };
+  const handleQ3 = (idx: number) => {
+    applyScores(q3Options[idx].scores);
+    setAnswerGoal(q3Options[idx].label.replace(/^.{2}\s/, ""));
+    nextStep();
+  };
 
   // Q4: Формат
   const q4Options = [
@@ -214,6 +229,7 @@ const Quiz = () => {
   ];
   const handleQ5 = (idx: number) => {
     setAdaptationNote(q5Options[idx].note);
+    setAnswerAdaptation(q5Options[idx].label.replace(/^.{2}\s/, ""));
     if (q5Options[idx].scores) applyScores(q5Options[idx].scores);
     nextStep();
   };
@@ -234,15 +250,18 @@ const Quiz = () => {
   ];
   const handleQ7 = (idx: number) => {
     setExperienceNote(q7Options[idx].note);
+    setAnswerExperience(q7Options[idx].label.replace(/^.{2}\s/, ""));
     applyScores(q7Options[idx].scores);
     nextStep();
   };
 
   // Q8: Длительность
+  const durationLabels = ["1 неделя", "2 недели", "Не решил(а)"];
   const handleQ8 = (idx: number) => {
-    if (idx === 0) setDurationAllowed([7]); // 1 неделя → только смена 7
-    else if (idx === 1) setDurationAllowed([1,2,3,4,5,6]); // 2 недели → все кроме 7
-    else setDurationAllowed([1,2,3,4,5,6,7]); // не решил → все
+    if (idx === 0) setDurationAllowed([7]);
+    else if (idx === 1) setDurationAllowed([1,2,3,4,5,6]);
+    else setDurationAllowed([1,2,3,4,5,6,7]);
+    setAnswerDuration(durationLabels[idx]);
     nextStep();
   };
 
@@ -275,6 +294,13 @@ const Quiz = () => {
           name,
           phone,
           shift: SHIFTS[id]?.title ?? id,
+          age: answerAge,
+          interests: answerInterests.join(", "),
+          goal: answerGoal,
+          adaptation: answerAdaptation,
+          experience: answerExperience,
+          duration: answerDuration,
+          priorities: priorityNote,
         }),
       });
     } catch (_e) { /* ignore */ }
@@ -293,6 +319,12 @@ const Quiz = () => {
     setMultiSelected([]);
     setName("");
     setPhone("");
+    setAnswerAge("");
+    setAnswerInterests([]);
+    setAnswerGoal("");
+    setAnswerAdaptation("");
+    setAnswerExperience("");
+    setAnswerDuration("");
   };
 
   const shift = SHIFTS[resultId];
