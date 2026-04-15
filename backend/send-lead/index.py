@@ -1,10 +1,11 @@
 import os
 import json
 import urllib.request
-# v3
+import psycopg2
+# v6
 
 def handler(event: dict, context) -> dict:
-    """Отправляет данные заявки из квиза в Telegram"""
+    """Отправляет данные заявки из квиза в Telegram и сохраняет в БД"""
 
     if event.get('httpMethod') == 'OPTIONS':
         return {
@@ -30,6 +31,19 @@ def handler(event: dict, context) -> dict:
     duration = body.get('duration', '—')
     priorities = body.get('priorities', '—')
 
+    # Сохранить в БД
+    conn = psycopg2.connect(os.environ['DATABASE_URL'])
+    cur = conn.cursor()
+    cur.execute(
+        "INSERT INTO leads (name, phone, shift, age, interests, goal, adaptation, experience, duration, priorities) "
+        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+        (name, phone, shift, age, interests, goal, adaptation, experience, duration, priorities)
+    )
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    # Отправить в Telegram
     text = (
         f"🎉 <b>Новая заявка из квиза!</b>\n\n"
         f"👤 <b>Имя:</b> {name}\n"
