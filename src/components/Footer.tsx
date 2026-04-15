@@ -48,6 +48,7 @@ const Footer = () => {
           <div className="flex gap-4 text-sm text-white/40">
             <span className="hover:text-white/70 cursor-pointer transition-colors">Политика конфиденциальности</span>
             <span className="hover:text-white/70 cursor-pointer transition-colors">Оферта</span>
+            <a href="/admin" className="hover:text-white/70 cursor-pointer transition-colors">Админ</a>
           </div>
         </div>
       </div>
