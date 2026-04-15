@@ -14,8 +14,8 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm border-b-2 border-camp-yellow">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollTo("hero")}>
-          <span className="text-3xl">⛺</span>
-          <span className="font-fun text-2xl text-camp-orange">ЛагерьПро</span>
+          <span className="text-3xl">🐟</span>
+          <span className="font-fun text-2xl text-camp-orange">Рыбка Долли</span>
         </div>
 
         <div className="hidden md:flex items-center gap-6">

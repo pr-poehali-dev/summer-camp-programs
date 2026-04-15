@@ -9,8 +9,8 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-3xl">⛺</span>
-              <span className="font-fun text-2xl text-camp-yellow">ЛагерьПро</span>
+              <span className="text-3xl">🐟</span>
+              <span className="font-fun text-2xl text-camp-yellow">Рыбка Долли</span>
             </div>
             <p className="text-white/60 text-sm leading-relaxed">
               Готовые программы для летних лагерей. Помогаем вожатым и организаторам создавать незабываемые смены.
@@ -33,9 +33,9 @@ const Footer = () => {
           <div>
             <h4 className="font-fun text-lg text-camp-yellow mb-4">Контакты</h4>
             <div className="space-y-2 text-sm text-white/60">
-              <div>📧 info@lagerpro.ru</div>
+              <div>📧 info@rybkadolly.ru</div>
               <div>📞 +7 (800) 123-45-67</div>
-              <div>💬 @lagerpro в Telegram</div>
+              <div>💬 @rybkadolly в Telegram</div>
               <div className="pt-2">Пн–Пт: 9:00–18:00</div>
             </div>
           </div>
@@ -43,12 +43,12 @@ const Footer = () => {
 
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-white/40 text-sm">
-            © 2024 ЛагерьПро. Все права защищены.
+            © 2024 Рыбка Долли. Все права защищены.
           </div>
           <div className="flex gap-4 text-sm text-white/40">
             <span className="hover:text-white/70 cursor-pointer transition-colors">Политика конфиденциальности</span>
             <span className="hover:text-white/70 cursor-pointer transition-colors">Оферта</span>
-            <a href="/admin" className="hover:text-white/70 cursor-pointer transition-colors">Админ</a>
+            <a href="/admin" className="hover:text-white transition-colors text-white/60 border border-white/20 rounded px-2 py-0.5">⚙ Админ</a>
           </div>
         </div>
       </div>
