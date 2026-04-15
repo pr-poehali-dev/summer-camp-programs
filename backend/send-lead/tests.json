@@ -1,0 +1,17 @@
+{
+  "tests": [
+    {
+      "name": "Send lead to Telegram",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Тест Тестов",
+        "phone": "+79991234567",
+        "shift": "Сундук со сказками"
+      },
+      "expectedStatus": 200,
+      "expectedBody": { "ok": true },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
