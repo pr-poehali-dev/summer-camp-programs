@@ -505,9 +505,24 @@ const Quiz = () => {
                 <p className="text-sm text-amber-700 mt-1">{shift.bonus}</p>
               </div>
 
-              <Button className="w-full text-base py-6 rounded-2xl camp-gradient text-white font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all mb-3">
-                {shift.cta}
-              </Button>
+              <div className="flex flex-col gap-3 mb-3">
+                <a
+                  href="https://wa.me/79881521698"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full text-base py-4 rounded-2xl bg-green-500 hover:bg-green-600 text-white font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2"
+                >
+                  💬 {shift.cta} в WhatsApp
+                </a>
+                <a
+                  href="https://t.me/+79881521698"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full text-base py-4 rounded-2xl bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2"
+                >
+                  ✈️ {shift.cta} в Telegram
+                </a>
+              </div>
 
               <div className="text-center text-sm text-muted-foreground border-t border-amber-100 pt-4 mt-2">
                 <p>Не уверены? Позвоните — поможем выбрать за 5 минут</p>
