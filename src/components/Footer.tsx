@@ -1,4 +1,19 @@
+import { useEffect, useState } from "react";
+import func2url from "../../backend/func2url.json";
+
 const Footer = () => {
+  const [visitors, setVisitors] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch(func2url["track-visit"])
+      .then((r) => r.json())
+      .then((data) => {
+        const parsed = typeof data === "string" ? JSON.parse(data) : data;
+        setVisitors(parsed.total ?? null);
+      })
+      .catch(() => {});
+  }, []);
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -42,13 +57,21 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-white/40 text-sm">
-            © 2024 Рыбка Долли. Все права защищены.
+          <div className="flex items-center gap-4 flex-wrap">
+            <div className="text-white/40 text-sm">
+              © 2024 Рыбка Долли. Все права защищены.
+            </div>
+            {visitors !== null && (
+              <div className="flex items-center gap-2 bg-white/10 rounded-full px-4 py-1.5 text-sm text-white/80">
+                <span className="text-green-400 text-base">👁</span>
+                <span><strong className="text-white">{visitors.toLocaleString("ru-RU")}</strong> посетителей</span>
+              </div>
+            )}
           </div>
-          <div className="flex gap-4 text-sm text-white/40">
+          <div className="flex gap-4 text-sm text-white/40 items-center">
             <span className="hover:text-white/70 cursor-pointer transition-colors">Политика конфиденциальности</span>
             <span className="hover:text-white/70 cursor-pointer transition-colors">Оферта</span>
-            <a href="/admin" className="hover:text-white transition-colors text-white/60 border border-white/20 rounded px-2 py-0.5">⚙ Админ</a>
+            <a href="/admin" className="hover:text-white transition-colors text-white font-semibold bg-white/15 border border-white/30 rounded-lg px-3 py-1.5">⚙ Админ</a>
           </div>
         </div>
       </div>

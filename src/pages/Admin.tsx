@@ -16,13 +16,29 @@ interface Lead {
   priorities: string;
 }
 
+const ADMIN_PASSWORD = "Savva22/";
+
 const Admin = () => {
+  const [auth, setAuth] = useState(() => sessionStorage.getItem("admin_auth") === "ok");
+  const [pwInput, setPwInput] = useState("");
+  const [pwError, setPwError] = useState(false);
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [visitors, setVisitors] = useState<number | null>(null);
 
+  const handleLogin = () => {
+    if (pwInput === ADMIN_PASSWORD) {
+      sessionStorage.setItem("admin_auth", "ok");
+      setAuth(true);
+    } else {
+      setPwError(true);
+      setTimeout(() => setPwError(false), 1500);
+    }
+  };
+
   useEffect(() => {
+    if (!auth) return;
     fetch(func2url["get-leads"])
       .then((r) => r.json())
       .then((data) => {
@@ -58,6 +74,32 @@ const Admin = () => {
       minute: "2-digit",
     });
   };
+
+  if (!auth) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-sm">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2 text-center">Вход в админку</h1>
+          <p className="text-gray-400 text-sm text-center mb-6">Введите пароль для доступа</p>
+          <input
+            type="password"
+            placeholder="Пароль"
+            value={pwInput}
+            onChange={e => setPwInput(e.target.value)}
+            onKeyDown={e => e.key === "Enter" && handleLogin()}
+            className={`w-full border-2 rounded-xl px-4 py-3 text-base mb-3 outline-none transition-colors ${pwError ? "border-red-400 bg-red-50" : "border-gray-200 focus:border-orange-400"}`}
+          />
+          {pwError && <p className="text-red-500 text-sm text-center mb-2">Неверный пароль</p>}
+          <button
+            onClick={handleLogin}
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition-colors"
+          >
+            Войти
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
