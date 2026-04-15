@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import func2url from "../../backend/func2url.json";
 
 // --- Типы ---
 type Scores = Record<string, number>;
@@ -258,11 +259,24 @@ const Quiz = () => {
     setStep("contacts");
   };
 
-  const handleContacts = () => {
+  const handleContacts = async () => {
     const id = calcResult(ageAllowed, multiScores, goalScores, formatScores);
     setResultId(id);
     setSubmitted(true);
     setStep("analyzing");
+
+    try {
+      await fetch(func2url["send-lead"], {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          phone,
+          shift: SHIFTS[id]?.title ?? id,
+        }),
+      });
+    } catch (_e) { /* ignore */ }
+
     setTimeout(() => setStep("result"), 2500);
   };
 

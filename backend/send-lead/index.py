@@ -1,7 +1,7 @@
 import os
 import json
 import urllib.request
-# v2
+# v3
 
 def handler(event: dict, context) -> dict:
     """Отправляет данные заявки из квиза в Telegram"""
@@ -46,5 +46,5 @@ def handler(event: dict, context) -> dict:
     return {
         'statusCode': 200,
         'headers': {'Access-Control-Allow-Origin': '*'},
-        'body': json.dumps({'ok': True})
+        'body': {'ok': True}
     }
