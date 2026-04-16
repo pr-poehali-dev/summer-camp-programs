@@ -35,23 +35,23 @@ const Footer = () => {
           <div>
             <h4 className="font-fun text-lg text-camp-yellow mb-4">Программы</h4>
             <div className="space-y-2 text-sm text-white/60">
-              <div>Приключения в джунглях</div>
-              <div>Космическое путешествие</div>
-              <div>Олимпийские игры</div>
-              <div>Творческая мастерская</div>
-              <button onClick={() => scrollTo("catalog")} className="text-camp-orange hover:text-orange-400 transition-colors font-semibold">
-                Смотреть все →
-              </button>
+              <div>Сундук со сказками</div>
+              <div>Вкусные открытия</div>
+              <div>Мульти-драйв</div>
+              <div>Поколение Альфа</div>
+              <div>Есть ли жизнь на Марсе?</div>
+              <div>Кругосветка</div>
+              <div>Невероятные открытия</div>
             </div>
           </div>
 
           <div>
             <h4 className="font-fun text-lg text-camp-yellow mb-4">Контакты</h4>
             <div className="space-y-2 text-sm text-white/60">
-              <div>📧 info@rybkadolly.ru</div>
-              <div>📞 +7 (800) 123-45-67</div>
-              <div>💬 @rybkadolly в Telegram</div>
-              <div className="pt-2">Пн–Пт: 9:00–18:00</div>
+              <div>📧 ribkadolli@mail.ru</div>
+              <div>📞 +7 988 152-16-98</div>
+              <a href="https://vk.com/rybka_dolli" target="_blank" rel="noopener noreferrer" className="block hover:text-white transition-colors">🔵 ВКонтакте</a>
+              <div className="pt-2">Пн–Пт: 8:00–18:00</div>
             </div>
           </div>
         </div>
